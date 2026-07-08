@@ -39,7 +39,7 @@ test('renders edit work order form, prefills data, and submits successfully usin
   vi.mocked(useRouter).mockReturnValue({
     push: mockPush,
     refresh: mockRefresh,
-  } as any);
+  } as unknown as ReturnType<typeof useRouter>);
 
   mockFetch.mockResolvedValueOnce({
     ok: true,

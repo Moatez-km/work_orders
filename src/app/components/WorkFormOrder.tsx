@@ -18,6 +18,7 @@ interface WorkFormOrderProps {
   }) => Promise<void>;
   errors?: Record<string, string[]>;
   isSubmitting?: boolean;
+  hideStatus?: boolean;
 }
 
 export default function WorkFormOrder({
@@ -25,6 +26,7 @@ export default function WorkFormOrder({
   onSubmit,
   errors = {},
   isSubmitting = false,
+  hideStatus = false,
 }: WorkFormOrderProps) {
   const [title, setTitle] = useState(initialData?.title ?? '');
   const [description, setDescription] = useState(initialData?.description ?? '');
@@ -126,31 +128,33 @@ export default function WorkFormOrder({
         </div>
 
         {/* Status */}
-        <div>
-          <label htmlFor="status" className="block text-sm font-semibold text-slate-700 dark:text-zinc-300">
-            Status
-          </label>
-          <select
-            id="status"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="mt-1 block w-full rounded-lg border border-slate-200 dark:border-zinc-800 px-4 py-2.5 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/30 dark:focus:ring-indigo-500/30 focus:border-indigo-500"
-          >
-            {STATUSES.map((s) => (
-              <option key={s} value={s}>
-                {s === 'in_progress' ? 'In Progress' : s.charAt(0).toUpperCase() + s.slice(1)}
-              </option>
-            ))}
-          </select>
-          {errors.status && (
-            <p className="mt-1.5 flex items-center gap-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium animate-in fade-in slide-in-from-top-1 duration-150">
-              <svg className="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3Z" />
-              </svg>
-              {errors.status.join(', ')}
-            </p>
-          )}
-        </div>
+        {!hideStatus && (
+          <div>
+            <label htmlFor="status" className="block text-sm font-semibold text-slate-700 dark:text-zinc-300">
+              Status
+            </label>
+            <select
+              id="status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="mt-1 block w-full rounded-lg border border-slate-200 dark:border-zinc-800 px-4 py-2.5 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/30 dark:focus:ring-indigo-500/30 focus:border-indigo-500"
+            >
+              {STATUSES.map((s) => (
+                <option key={s} value={s}>
+                  {s === 'in_progress' ? 'In Progress' : s.charAt(0).toUpperCase() + s.slice(1)}
+                </option>
+              ))}
+            </select>
+            {errors.status && (
+              <p className="mt-1.5 flex items-center gap-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium animate-in fade-in slide-in-from-top-1 duration-150">
+                <svg className="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3Z" />
+                </svg>
+                {errors.status.join(', ')}
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Action Buttons */}

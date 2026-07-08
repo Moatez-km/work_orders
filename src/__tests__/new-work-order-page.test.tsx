@@ -21,7 +21,7 @@ test('renders new work order form and submits successfully', async () => {
   vi.mocked(useRouter).mockReturnValue({
     push: mockPush,
     refresh: mockRefresh,
-  } as any);
+  } as unknown as ReturnType<typeof useRouter>);
 
   mockFetch.mockResolvedValueOnce({
     ok: true,

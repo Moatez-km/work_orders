@@ -42,7 +42,7 @@ export default function NewWorkOrderPage() {
         router.push('/work-orders?success=created');
         router.refresh();
       }
-    } catch (err) {
+    } catch {
       setApiError('A network error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -84,6 +84,7 @@ export default function NewWorkOrderPage() {
               onSubmit={handleSubmit}
               errors={errors}
               isSubmitting={isSubmitting}
+              hideStatus={true}
             />
           </div>
         </div>

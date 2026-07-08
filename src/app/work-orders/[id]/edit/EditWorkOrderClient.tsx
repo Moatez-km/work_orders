@@ -47,7 +47,7 @@ export default function EditWorkOrderClient({ workOrder }: EditWorkOrderClientPr
         router.push(`/work-orders/${workOrder.id}?success=updated`);
         router.refresh();
       }
-    } catch (err) {
+    } catch {
       setApiError('A network error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);

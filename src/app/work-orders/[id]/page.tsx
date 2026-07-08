@@ -112,7 +112,6 @@ export default async function WorkOrderDetailPage({ params, searchParams }: Page
             <DeleteWorkOrderButton
               workOrderId={workOrder.id}
               workOrderTitle={workOrder.title}
-              redirectOnDelete={true}
             />
           </div>
         </div>

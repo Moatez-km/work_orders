@@ -7,13 +7,11 @@ import ConfirmModal from './ConfirmModal';
 interface DeleteWorkOrderButtonProps {
   workOrderId: string;
   workOrderTitle: string;
-  redirectOnDelete?: boolean;
 }
 
 export default function DeleteWorkOrderButton({
   workOrderId,
   workOrderTitle,
-  redirectOnDelete = false,
 }: DeleteWorkOrderButtonProps) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -42,7 +40,7 @@ export default function DeleteWorkOrderButton({
         alert(errorData.error || 'Failed to delete work order.');
         setIsDeleting(false);
       }
-    } catch (error) {
+    } catch {
       alert('A network error occurred. Please try again.');
       setIsDeleting(false);
     }
