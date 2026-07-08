@@ -11,7 +11,8 @@ vi.mock('next/image', () => ({
   },
 }));
 
-test('renders home page with welcome text', () => {
+test('renders home page with directory title', () => {
   render(<Home />);
-  expect(screen.getByText(/To get started, edit the page.tsx file./i)).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /Work Orders Directory/i })).toBeInTheDocument();
 });
+
