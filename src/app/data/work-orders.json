@@ -3,9 +3,9 @@
     "id": "8fc5a2f0-75a9-46cd-9331-fb0bf3802e8a",
     "title": "Repair Lobby HVAC",
     "description": "The HVAC unit in the main lobby is making a loud rattling noise and failing to cool the area.",
-    "priority": "high",
-    "status": "open",
-    "updatedAt": "2026-07-08T10:31:27.206Z"
+    "priority": "medium",
+    "status": "in_progress",
+    "updatedAt": "2026-07-08T12:04:40.823Z"
   },
   {
     "id": "40467070-4958-4281-aa19-b8271d9b45ec",
