@@ -38,5 +38,13 @@
     "priority": "high",
     "status": "Done",
     "updatedAt": "2026-07-08T10:31:27.207Z"
+  },
+  {
+    "id": "f6d836ed-0205-4fbc-9980-b0bdd3e73134",
+    "title": "Broken window in Room 204",
+    "description": "The window pane is shattered and needs replacement.",
+    "priority": "medium",
+    "status": "open",
+    "updatedAt": "2026-07-08T11:51:34.281Z"
   }
 ]
