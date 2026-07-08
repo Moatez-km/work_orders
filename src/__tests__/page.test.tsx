@@ -1,18 +1,12 @@
-import { render, screen } from '@testing-library/react';
-import { ComponentProps } from 'react';
 import { expect, test, vi } from 'vitest';
 import Home from '../app/page';
+import { redirect } from 'next/navigation';
 
-// Mock next/image
-vi.mock('next/image', () => ({
-  default: ({ priority, ...props }: ComponentProps<'img'> & { priority?: boolean }) => {
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    return <img {...props} data-priority={priority ? 'true' : undefined} />;
-  },
+vi.mock('next/navigation', () => ({
+  redirect: vi.fn(),
 }));
 
-test('renders home page with directory title', () => {
-  render(<Home />);
-  expect(screen.getByRole('heading', { name: /Work Orders Directory/i })).toBeInTheDocument();
+test('redirects to /work-orders from home route', () => {
+  Home();
+  expect(redirect).toHaveBeenCalledWith('/work-orders');
 });
-
