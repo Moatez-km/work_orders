@@ -4,8 +4,20 @@ import DeleteWorkOrderButton from '../components/DeleteWorkOrderButton';
 
 export const dynamic = 'force-dynamic';
 
-export default function WorkOrdersPage() {
-  const workOrders = readWorkOrders();
+interface PageProps {
+  searchParams?: Promise<{ q?: string }>;
+}
+
+export default async function WorkOrdersPage({ searchParams }: PageProps) {
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.q || '';
+
+  const allWorkOrders = readWorkOrders();
+  const workOrders = query
+    ? allWorkOrders.filter((wo) =>
+        wo.title.toLowerCase().includes(query.toLowerCase())
+      )
+    : allWorkOrders;
 
   // Helper for Priority styling
   const getPriorityBadge = (priority: string) => {
@@ -100,6 +112,38 @@ export default function WorkOrdersPage() {
           </div>
         </div>
 
+        {/* Search Bar */}
+        <form method="GET" action="/work-orders" className="mb-6 flex gap-2">
+          <div className="relative flex-1 max-w-md">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg className="h-5 w-5 text-slate-400 dark:text-zinc-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              name="q"
+              defaultValue={query}
+              placeholder="Search work orders by title..."
+              className="block w-full rounded-lg border border-slate-200 dark:border-zinc-800 pl-10 pr-4 py-2 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/25"
+            />
+          </div>
+          <button
+            type="submit"
+            className="inline-flex justify-center items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 transition-all cursor-pointer"
+          >
+            Search
+          </button>
+          {query && (
+            <Link
+              href="/work-orders"
+              className="inline-flex justify-center items-center rounded-lg border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-all"
+            >
+              Clear
+            </Link>
+          )}
+        </form>
+
         {/* Table Container Card */}
         <div className="bg-white dark:bg-zinc-900 shadow-xl rounded-xl border border-slate-100 dark:border-zinc-800 overflow-hidden transition-all duration-300 hover:shadow-2xl">
           <div className="px-6 py-5 border-b border-slate-100 dark:border-zinc-800 flex justify-between items-center bg-slate-50/50 dark:bg-zinc-900/50">
@@ -124,9 +168,13 @@ export default function WorkOrdersPage() {
                   d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 002-2h2a2 2 0 002-2"
                 />
               </svg>
-              <h3 className="mt-2 text-sm font-medium text-slate-900 dark:text-white">No work orders</h3>
+              <h3 className="mt-2 text-sm font-medium text-slate-900 dark:text-white">
+                {query ? 'No matching work orders' : 'No work orders'}
+              </h3>
               <p className="mt-1 text-sm text-slate-500 dark:text-zinc-400">
-                Get started by seeding or adding a work order.
+                {query
+                  ? `Try adjusting your search query or clear it to see all items.`
+                  : 'Get started by seeding or adding a work order.'}
               </p>
             </div>
           ) : (

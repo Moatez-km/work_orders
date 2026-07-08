@@ -16,7 +16,7 @@ vi.mock('next/navigation', () => ({
   })),
 }));
 
-test('renders work orders page with directory title, new button, and table contents including actions', () => {
+test('renders work orders page with directory title, new button, and table contents including actions', async () => {
   vi.mocked(readWorkOrders).mockReturnValue([
     {
       id: 'test-1',
@@ -28,7 +28,7 @@ test('renders work orders page with directory title, new button, and table conte
     },
   ]);
 
-  render(<WorkOrdersPage />);
+  render(await WorkOrdersPage({}));
   
   // Verify Header elements
   expect(screen.getByRole('heading', { name: /Work Orders Directory/i })).toBeInTheDocument();
@@ -46,4 +46,39 @@ test('renders work orders page with directory title, new button, and table conte
   expect(screen.getByRole('link', { name: /Edit Work Order/i })).toBeInTheDocument();
   expect(screen.getByRole('button', { name: /Delete work order Fix lobby HVAC/i })).toBeInTheDocument();
 });
+
+test('filters work orders by title when search query is provided', async () => {
+  vi.mocked(readWorkOrders).mockReturnValue([
+    {
+      id: 'test-1',
+      title: 'Fix lobby HVAC',
+      description: 'Loud rattling noise',
+      priority: 'high',
+      status: 'open',
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: 'test-2',
+      title: 'Water leak',
+      description: 'Plumbing issue',
+      priority: 'low',
+      status: 'open',
+      updatedAt: new Date().toISOString(),
+    },
+  ]);
+
+  const searchParams = Promise.resolve({ q: 'leak' });
+  render(await WorkOrdersPage({ searchParams }));
+
+  // Verify only matched work order is displayed
+  expect(screen.getByText('Water leak')).toBeInTheDocument();
+  expect(screen.queryByText('Fix lobby HVAC')).not.toBeInTheDocument();
+
+  // Verify query is prefilled in search input
+  expect(screen.getByPlaceholderText(/Search work orders/i)).toHaveValue('leak');
+  
+  // Verify Clear button is shown
+  expect(screen.getByRole('link', { name: /Clear/i })).toBeInTheDocument();
+});
+
 
