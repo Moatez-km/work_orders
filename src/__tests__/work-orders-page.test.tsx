@@ -8,7 +8,15 @@ vi.mock('../app/lib/work-orders', () => ({
   readWorkOrders: vi.fn(),
 }));
 
-test('renders work orders page with directory title and table contents', () => {
+// Mock next/navigation
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    refresh: vi.fn(),
+  })),
+}));
+
+test('renders work orders page with directory title, new button, and table contents including actions', () => {
   vi.mocked(readWorkOrders).mockReturnValue([
     {
       id: 'test-1',
@@ -21,9 +29,21 @@ test('renders work orders page with directory title and table contents', () => {
   ]);
 
   render(<WorkOrdersPage />);
+  
+  // Verify Header elements
   expect(screen.getByRole('heading', { name: /Work Orders Directory/i })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /New Work Order/i })).toBeInTheDocument();
+  
+  // Verify table content
   expect(screen.getByText('Fix lobby HVAC')).toBeInTheDocument();
   expect(screen.getByText('Loud rattling noise')).toBeInTheDocument();
   expect(screen.getByText('High')).toBeInTheDocument();
   expect(screen.getByText('Open')).toBeInTheDocument();
+
+  // Verify actions column headers and buttons
+  expect(screen.getByRole('columnheader', { name: /Actions/i })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /View Details/i })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /Edit Work Order/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /Delete work order Fix lobby HVAC/i })).toBeInTheDocument();
 });
+

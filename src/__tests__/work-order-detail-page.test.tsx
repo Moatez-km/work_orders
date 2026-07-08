@@ -11,9 +11,13 @@ vi.mock('../app/lib/work-orders', () => ({
 
 vi.mock('next/navigation', () => ({
   notFound: vi.fn(),
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    refresh: vi.fn(),
+  })),
 }));
 
-test('renders work order detail page for existing ID', async () => {
+test('renders work order detail page for existing ID with Edit and Delete actions', async () => {
   vi.mocked(readWorkOrders).mockReturnValue([
     {
       id: 'test-123',
@@ -33,6 +37,10 @@ test('renders work order detail page for existing ID', async () => {
   expect(screen.getByText('Loud fan motor noise')).toBeInTheDocument();
   expect(screen.getByText('ID: test-123')).toBeInTheDocument();
   expect(screen.getByText('High')).toBeInTheDocument();
+
+  // Verify Edit and Delete buttons are rendered
+  expect(screen.getByRole('link', { name: /Edit/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /Delete work order Fix server HVAC/i })).toBeInTheDocument();
 });
 
 test('calls notFound when work order does not exist', async () => {
@@ -43,3 +51,4 @@ test('calls notFound when work order does not exist', async () => {
 
   expect(notFound).toHaveBeenCalled();
 });
+

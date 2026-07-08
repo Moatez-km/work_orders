@@ -1,6 +1,7 @@
 import { readWorkOrders } from '../../lib/work-orders';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import DeleteWorkOrderButton from '../../components/DeleteWorkOrderButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -87,14 +88,30 @@ export default async function WorkOrderDetailPage({ params }: PageProps) {
       <div className="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-        {/* Back Link */}
-        <div className="mb-6">
+        {/* Back Link and Action Buttons */}
+        <div className="mb-6 flex justify-between items-center">
           <Link
             href="/work-orders"
             className="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
           >
             ← Back to Directory
           </Link>
+          <div className="flex gap-2">
+            <Link
+              href={`/work-orders/${workOrder.id}/edit`}
+              className="inline-flex justify-center items-center gap-1.5 rounded-lg border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-all cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+              </svg>
+              Edit
+            </Link>
+            <DeleteWorkOrderButton
+              workOrderId={workOrder.id}
+              workOrderTitle={workOrder.title}
+              redirectOnDelete={true}
+            />
+          </div>
         </div>
 
         {/* Card Container */}

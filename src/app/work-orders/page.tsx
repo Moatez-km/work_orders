@@ -1,4 +1,6 @@
 import { readWorkOrders } from '../lib/work-orders';
+import Link from 'next/link';
+import DeleteWorkOrderButton from '../components/DeleteWorkOrderButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -76,7 +78,7 @@ export default function WorkOrdersPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
         {/* Header Section */}
-        <div className="md:flex md:items-center md:justify-between mb-8">
+        <div className="md:flex md:items-center md:justify-between mb-8 gap-4">
           <div className="flex-1 min-w-0">
             <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-900 bg-clip-text text-transparent dark:from-white dark:to-zinc-400">
               Work Orders Directory
@@ -84,6 +86,17 @@ export default function WorkOrdersPage() {
             <p className="mt-2 text-sm text-slate-500 dark:text-zinc-400">
               Overview of currently registered maintenance tasks, hardware issues, and building work orders.
             </p>
+          </div>
+          <div className="mt-4 md:mt-0 flex-shrink-0">
+            <Link
+              href="/work-orders/new"
+              className="inline-flex justify-center items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              New Work Order
+            </Link>
           </div>
         </div>
 
@@ -145,6 +158,12 @@ export default function WorkOrdersPage() {
                     >
                       Updated At
                     </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-4 text-right text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider"
+                    >
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-zinc-800 bg-white dark:bg-zinc-900">
@@ -171,6 +190,33 @@ export default function WorkOrdersPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-zinc-400">
                         {formatDate(wo.updatedAt)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <div className="flex items-center justify-end gap-2">
+                          <Link
+                            href={`/work-orders/${wo.id}`}
+                            title="View Details"
+                            className="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:text-indigo-400 dark:hover:bg-indigo-950/30 transition-all"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                          </Link>
+                          <Link
+                            href={`/work-orders/${wo.id}/edit`}
+                            title="Edit Work Order"
+                            className="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:text-amber-400 dark:hover:bg-amber-950/30 transition-all"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                            </svg>
+                          </Link>
+                          <DeleteWorkOrderButton
+                            workOrderId={wo.id}
+                            workOrderTitle={wo.title}
+                          />
+                        </div>
                       </td>
                     </tr>
                   ))}
