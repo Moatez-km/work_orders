@@ -1,0 +1,42 @@
+[
+  {
+    "id": "8fc5a2f0-75a9-46cd-9331-fb0bf3802e8a",
+    "title": "Repair Lobby HVAC",
+    "description": "The HVAC unit in the main lobby is making a loud rattling noise and failing to cool the area.",
+    "priority": "high",
+    "status": "open",
+    "updatedAt": "2026-07-08T10:31:27.206Z"
+  },
+  {
+    "id": "40467070-4958-4281-aa19-b8271d9b45ec",
+    "title": "Fix Flickering Lights in Hallway B",
+    "description": "Several fluorescent tubes in Hallway B are flickering and need replacement.",
+    "priority": "low",
+    "status": "open",
+    "updatedAt": "2026-07-08T10:31:27.207Z"
+  },
+  {
+    "id": "cd531034-2169-4071-b65a-df979562ec91",
+    "title": "Unclog Restroom Drain",
+    "description": "The main drain in the second-floor men's restroom is clogged and draining extremely slowly.",
+    "priority": "high",
+    "status": "in_progress",
+    "updatedAt": "2026-07-08T10:31:27.207Z"
+  },
+  {
+    "id": "69123118-15cc-4513-aabd-471990cded0f",
+    "title": "Fix Cracked Window Pane",
+    "description": "A window pane in Conference Room 104 has a hairline crack and needs to be replaced.",
+    "priority": "medium",
+    "status": "open",
+    "updatedAt": "2026-07-08T10:31:27.207Z"
+  },
+  {
+    "id": "6f4526ea-4e20-4a78-8912-af2af685ef29",
+    "title": "Install New Door Lock",
+    "description": "The lock mechanism on the server room door has failed. Install a new smart lock system.",
+    "priority": "high",
+    "status": "Done",
+    "updatedAt": "2026-07-08T10:31:27.207Z"
+  }
+]
