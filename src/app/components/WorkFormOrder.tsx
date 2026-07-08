@@ -53,15 +53,18 @@ export default function WorkFormOrder({
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className={`mt-1 block w-full rounded-lg border px-4 py-2 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/25 ${
+          className={`mt-1 block w-full rounded-lg border px-4 py-2.5 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:outline-none focus:ring-2 ${
             errors.title
-              ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500/25'
-              : 'border-slate-200 dark:border-zinc-800 focus:border-indigo-500'
+              ? 'border-rose-300 dark:border-rose-500/30 focus:border-rose-500 focus:ring-rose-500/30 dark:focus:ring-rose-500/30'
+              : 'border-slate-200 dark:border-zinc-800 focus:border-indigo-500 focus:ring-indigo-500/30 dark:focus:ring-indigo-500/30'
           }`}
           placeholder="e.g. Repair lobby HVAC"
         />
         {errors.title && (
-          <p className="mt-1 text-xs text-rose-600 dark:text-rose-400 font-medium">
+          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium animate-in fade-in slide-in-from-top-1 duration-150">
+            <svg className="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3Z" />
+            </svg>
             {errors.title.join(', ')}
           </p>
         )}
@@ -77,15 +80,18 @@ export default function WorkFormOrder({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
-          className={`mt-1 block w-full rounded-lg border px-4 py-2 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/25 ${
+          className={`mt-1 block w-full rounded-lg border px-4 py-2.5 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:outline-none focus:ring-2 ${
             errors.description
-              ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500/25'
-              : 'border-slate-200 dark:border-zinc-800 focus:border-indigo-500'
+              ? 'border-rose-300 dark:border-rose-500/30 focus:border-rose-500 focus:ring-rose-500/30 dark:focus:ring-rose-500/30'
+              : 'border-slate-200 dark:border-zinc-800 focus:border-indigo-500 focus:ring-indigo-500/30 dark:focus:ring-indigo-500/30'
           }`}
           placeholder="Detailed description of the issue..."
         />
         {errors.description && (
-          <p className="mt-1 text-xs text-rose-600 dark:text-rose-400 font-medium">
+          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium animate-in fade-in slide-in-from-top-1 duration-150">
+            <svg className="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3Z" />
+            </svg>
             {errors.description.join(', ')}
           </p>
         )}
@@ -101,7 +107,7 @@ export default function WorkFormOrder({
             id="priority"
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
-            className="mt-1 block w-full rounded-lg border border-slate-200 dark:border-zinc-800 px-4 py-2 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/25"
+            className="mt-1 block w-full rounded-lg border border-slate-200 dark:border-zinc-800 px-4 py-2.5 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/30 dark:focus:ring-indigo-500/30 focus:border-indigo-500"
           >
             {PRIORITIES.map((p) => (
               <option key={p} value={p}>
@@ -110,7 +116,10 @@ export default function WorkFormOrder({
             ))}
           </select>
           {errors.priority && (
-            <p className="mt-1 text-xs text-rose-600 dark:text-rose-400 font-medium">
+            <p className="mt-1.5 flex items-center gap-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium animate-in fade-in slide-in-from-top-1 duration-150">
+              <svg className="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3Z" />
+              </svg>
               {errors.priority.join(', ')}
             </p>
           )}
@@ -125,7 +134,7 @@ export default function WorkFormOrder({
             id="status"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="mt-1 block w-full rounded-lg border border-slate-200 dark:border-zinc-800 px-4 py-2 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/25"
+            className="mt-1 block w-full rounded-lg border border-slate-200 dark:border-zinc-800 px-4 py-2.5 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/30 dark:focus:ring-indigo-500/30 focus:border-indigo-500"
           >
             {STATUSES.map((s) => (
               <option key={s} value={s}>
@@ -134,7 +143,10 @@ export default function WorkFormOrder({
             ))}
           </select>
           {errors.status && (
-            <p className="mt-1 text-xs text-rose-600 dark:text-rose-400 font-medium">
+            <p className="mt-1.5 flex items-center gap-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium animate-in fade-in slide-in-from-top-1 duration-150">
+              <svg className="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3Z" />
+              </svg>
               {errors.status.join(', ')}
             </p>
           )}
@@ -146,9 +158,19 @@ export default function WorkFormOrder({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 transition-all cursor-pointer"
+          className="inline-flex justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-600 active:scale-[0.98] disabled:opacity-50 transition-all cursor-pointer"
         >
-          {isSubmitting ? 'Submitting...' : 'Save Work Order'}
+          {isSubmitting ? (
+            <span className="flex items-center gap-1.5">
+              <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Saving...
+            </span>
+          ) : (
+            'Save Work Order'
+          )}
         </button>
       </div>
     </form>

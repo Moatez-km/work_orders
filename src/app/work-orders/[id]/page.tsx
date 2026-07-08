@@ -7,10 +7,13 @@ export const dynamic = 'force-dynamic';
 
 interface PageProps {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ success?: string }>;
 }
 
-export default async function WorkOrderDetailPage({ params }: PageProps) {
+export default async function WorkOrderDetailPage({ params, searchParams }: PageProps) {
   const { id } = await params;
+  const resolvedSearchParams = await searchParams;
+  const success = resolvedSearchParams?.success || '';
   const workOrders = readWorkOrders();
   const workOrder = workOrders.find((wo) => wo.id === id);
 
@@ -92,14 +95,14 @@ export default async function WorkOrderDetailPage({ params }: PageProps) {
         <div className="mb-6 flex justify-between items-center">
           <Link
             href="/work-orders"
-            className="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
+            className="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-md px-1"
           >
             ← Back to Directory
           </Link>
           <div className="flex gap-2">
             <Link
               href={`/work-orders/${workOrder.id}/edit`}
-              className="inline-flex justify-center items-center gap-1.5 rounded-lg border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-all cursor-pointer"
+              className="inline-flex justify-center items-center gap-1.5 rounded-lg border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-600 active:scale-[0.98] transition-all cursor-pointer"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
@@ -113,6 +116,24 @@ export default async function WorkOrderDetailPage({ params }: PageProps) {
             />
           </div>
         </div>
+
+        {/* Success Alert Banner */}
+        {success === 'updated' && (
+          <div className="mb-6 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-sm font-semibold text-emerald-800 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20 flex items-center gap-3 shadow-sm animate-in fade-in slide-in-from-top-2 duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-5 w-5 flex-shrink-0 text-emerald-600 dark:text-emerald-400">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <div className="flex-1">
+              Work order updated successfully!
+            </div>
+            <Link 
+              href={`/work-orders/${id}`}
+              className="text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 underline focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
+            >
+              Dismiss
+            </Link>
+          </div>
+        )}
 
         {/* Card Container */}
         <div className="bg-white dark:bg-zinc-900 shadow-xl rounded-xl border border-slate-100 dark:border-zinc-800 overflow-hidden transition-all duration-300 hover:shadow-2xl">

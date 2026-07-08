@@ -42,7 +42,7 @@ test('renders new work order form and submits successfully', async () => {
 
   await waitFor(() => {
     expect(mockFetch).toHaveBeenCalledWith('/api/work-orders', expect.any(Object));
-    expect(mockPush).toHaveBeenCalledWith('/work-orders');
+    expect(mockPush).toHaveBeenCalledWith('/work-orders?success=created');
     expect(mockRefresh).toHaveBeenCalled();
   });
 });

@@ -75,7 +75,7 @@ test('renders edit work order form, prefills data, and submits successfully usin
       priority: 'low',
       status: 'in_progress',
     });
-    expect(mockPush).toHaveBeenCalledWith('/work-orders/test-123');
+    expect(mockPush).toHaveBeenCalledWith('/work-orders/test-123?success=updated');
     expect(mockRefresh).toHaveBeenCalled();
   });
 });

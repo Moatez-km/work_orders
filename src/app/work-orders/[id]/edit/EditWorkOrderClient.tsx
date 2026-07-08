@@ -44,7 +44,7 @@ export default function EditWorkOrderClient({ workOrder }: EditWorkOrderClientPr
           setApiError(result.error || 'Failed to update work order.');
         }
       } else {
-        router.push(`/work-orders/${workOrder.id}`);
+        router.push(`/work-orders/${workOrder.id}?success=updated`);
         router.refresh();
       }
     } catch (err) {
@@ -62,7 +62,7 @@ export default function EditWorkOrderClient({ workOrder }: EditWorkOrderClientPr
         <div className="mb-6">
           <Link
             href={`/work-orders/${workOrder.id}`}
-            className="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
+            className="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-md px-1"
           >
             ← Cancel & Back to Details
           </Link>
@@ -77,8 +77,11 @@ export default function EditWorkOrderClient({ workOrder }: EditWorkOrderClientPr
 
           <div className="p-6 sm:p-8">
             {apiError && (
-              <div className="mb-6 p-4 rounded-lg bg-rose-50 dark:bg-rose-500/10 text-sm font-medium text-rose-800 dark:text-rose-400 border border-rose-100 dark:border-rose-500/20">
-                {apiError}
+              <div className="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-500/10 text-sm font-semibold text-rose-800 dark:text-rose-400 border border-rose-100 dark:border-rose-500/20 flex items-center gap-3 shadow-sm animate-in fade-in slide-in-from-top-2 duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-5 w-5 flex-shrink-0 text-rose-600 dark:text-rose-400">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3Z" />
+                </svg>
+                <div className="flex-1">{apiError}</div>
               </div>
             )}
 

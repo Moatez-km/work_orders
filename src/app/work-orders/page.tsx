@@ -5,12 +5,13 @@ import DeleteWorkOrderButton from '../components/DeleteWorkOrderButton';
 export const dynamic = 'force-dynamic';
 
 interface PageProps {
-  searchParams?: Promise<{ q?: string }>;
+  searchParams?: Promise<{ q?: string; success?: string }>;
 }
 
 export default async function WorkOrdersPage({ searchParams }: PageProps) {
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams?.q || '';
+  const success = resolvedSearchParams?.success || '';
 
   const allWorkOrders = readWorkOrders();
   const workOrders = query
@@ -112,9 +113,29 @@ export default async function WorkOrdersPage({ searchParams }: PageProps) {
           </div>
         </div>
 
+        {/* Success Alert Banner */}
+        {success && (
+          <div className="mb-6 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-sm font-semibold text-emerald-800 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20 flex items-center gap-3 shadow-sm animate-in fade-in slide-in-from-top-2 duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-5 w-5 flex-shrink-0 text-emerald-600 dark:text-emerald-400">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <div className="flex-1">
+              {success === 'created' && 'Work order created successfully!'}
+              {success === 'updated' && 'Work order updated successfully!'}
+              {success === 'deleted' && 'Work order deleted successfully!'}
+            </div>
+            <Link 
+              href="/work-orders"
+              className="text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 underline focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
+            >
+              Dismiss
+            </Link>
+          </div>
+        )}
+
         {/* Search Bar */}
-        <form method="GET" action="/work-orders" className="mb-6 flex gap-2">
-          <div className="relative flex-1 max-w-md">
+        <form method="GET" action="/work-orders" className="mb-6 flex flex-col sm:flex-row gap-2">
+          <div className="relative flex-1 max-w-md w-full">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <svg className="h-5 w-5 text-slate-400 dark:text-zinc-500" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clipRule="evenodd" />
@@ -125,23 +146,25 @@ export default async function WorkOrdersPage({ searchParams }: PageProps) {
               name="q"
               defaultValue={query}
               placeholder="Search work orders by title..."
-              className="block w-full rounded-lg border border-slate-200 dark:border-zinc-800 pl-10 pr-4 py-2 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/25"
+              className="block w-full rounded-lg border border-slate-200 dark:border-zinc-800 pl-10 pr-4 py-2.5 text-sm bg-white dark:bg-zinc-950 text-slate-900 dark:text-white transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 dark:focus:ring-indigo-500/40"
             />
           </div>
-          <button
-            type="submit"
-            className="inline-flex justify-center items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 transition-all cursor-pointer"
-          >
-            Search
-          </button>
-          {query && (
-            <Link
-              href="/work-orders"
-              className="inline-flex justify-center items-center rounded-lg border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 transition-all"
+          <div className="flex gap-2 w-full sm:w-auto">
+            <button
+              type="submit"
+              className="flex-1 sm:flex-none inline-flex justify-center items-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-600 active:scale-[0.98] transition-all cursor-pointer"
             >
-              Clear
-            </Link>
-          )}
+              Search
+            </button>
+            {query && (
+              <Link
+                href="/work-orders"
+                className="flex-1 sm:flex-none inline-flex justify-center items-center rounded-lg border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-600 transition-all"
+              >
+                Clear
+              </Link>
+            )}
+          </div>
         </form>
 
         {/* Table Container Card */}
@@ -202,7 +225,7 @@ export default async function WorkOrdersPage({ searchParams }: PageProps) {
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider"
+                      className="hidden sm:table-cell px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider"
                     >
                       Updated At
                     </th>
@@ -236,7 +259,7 @@ export default async function WorkOrdersPage({ searchParams }: PageProps) {
                       <td className="px-6 py-4 whitespace-nowrap">
                         {getStatusBadge(wo.status)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-zinc-400">
+                      <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-zinc-400">
                         {formatDate(wo.updatedAt)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -244,7 +267,7 @@ export default async function WorkOrdersPage({ searchParams }: PageProps) {
                           <Link
                             href={`/work-orders/${wo.id}`}
                             title="View Details"
-                            className="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:text-indigo-400 dark:hover:bg-indigo-950/30 transition-all"
+                            className="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:text-indigo-400 dark:hover:bg-indigo-950/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 active:scale-95"
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
@@ -254,7 +277,7 @@ export default async function WorkOrdersPage({ searchParams }: PageProps) {
                           <Link
                             href={`/work-orders/${wo.id}/edit`}
                             title="Edit Work Order"
-                            className="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:text-amber-400 dark:hover:bg-amber-950/30 transition-all"
+                            className="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:text-amber-400 dark:hover:bg-amber-950/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-95"
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                               <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />

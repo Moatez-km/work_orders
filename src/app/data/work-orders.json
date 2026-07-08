@@ -1,50 +1,42 @@
 [
   {
-    "id": "8fc5a2f0-75a9-46cd-9331-fb0bf3802e8a",
-    "title": "Repair Lobby HVAC",
+    "id": "0aeb6ce7-512e-4cc3-af7b-9c0ca763bb69",
+    "title": "Repair Lobby HVAC 2",
     "description": "The HVAC unit in the main lobby is making a loud rattling noise and failing to cool the area.",
-    "priority": "medium",
+    "priority": "low",
     "status": "in_progress",
-    "updatedAt": "2026-07-08T12:04:40.823Z"
+    "updatedAt": "2026-07-08T12:40:28.772Z"
   },
   {
-    "id": "40467070-4958-4281-aa19-b8271d9b45ec",
+    "id": "6ac9789a-7965-4830-a90d-9ffe2bba49b7",
     "title": "Fix Flickering Lights in Hallway B",
     "description": "Several fluorescent tubes in Hallway B are flickering and need replacement.",
     "priority": "low",
     "status": "open",
-    "updatedAt": "2026-07-08T10:31:27.207Z"
+    "updatedAt": "2026-07-08T12:39:31.742Z"
   },
   {
-    "id": "cd531034-2169-4071-b65a-df979562ec91",
+    "id": "005e7b18-f36e-40ab-909c-756dd5339d9e",
     "title": "Unclog Restroom Drain",
     "description": "The main drain in the second-floor men's restroom is clogged and draining extremely slowly.",
     "priority": "high",
     "status": "in_progress",
-    "updatedAt": "2026-07-08T10:31:27.207Z"
+    "updatedAt": "2026-07-08T12:39:31.742Z"
   },
   {
-    "id": "69123118-15cc-4513-aabd-471990cded0f",
+    "id": "d4e12bfd-e318-4eb1-a61c-6169411dea5e",
     "title": "Fix Cracked Window Pane",
     "description": "A window pane in Conference Room 104 has a hairline crack and needs to be replaced.",
     "priority": "medium",
     "status": "open",
-    "updatedAt": "2026-07-08T10:31:27.207Z"
+    "updatedAt": "2026-07-08T12:39:31.742Z"
   },
   {
-    "id": "6f4526ea-4e20-4a78-8912-af2af685ef29",
+    "id": "fe3fca85-be68-48ef-bd75-5d11ffe8d84e",
     "title": "Install New Door Lock",
     "description": "The lock mechanism on the server room door has failed. Install a new smart lock system.",
     "priority": "high",
     "status": "Done",
-    "updatedAt": "2026-07-08T10:31:27.207Z"
-  },
-  {
-    "id": "f6d836ed-0205-4fbc-9980-b0bdd3e73134",
-    "title": "Broken window in Room 204",
-    "description": "The window pane is shattered and needs replacement.",
-    "priority": "medium",
-    "status": "open",
-    "updatedAt": "2026-07-08T11:51:34.281Z"
+    "updatedAt": "2026-07-08T12:39:31.743Z"
   }
 ]
